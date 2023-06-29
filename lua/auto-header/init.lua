@@ -55,9 +55,9 @@ M.config = {
 local function make_git_conf(path)
 	local split_path = utils.split_string(path:absolute(), path.path.sep)
 	return {
-		project_name = split_path[#split_path],
 		root = path,
 		data = {
+			project_name = split_path[#split_path],
 			cp_holders = utils.get_user_name(),
 			author_mail = utils.get_user_mail(),
 		},
@@ -344,6 +344,6 @@ end
 M.test = M.add_or_update_header
 
 -- Auto add header on save
-vim.cmd([[autocmd BufWritePre * lua add_or_update_header()]])
+vim.cmd([[autocmd BufWritePre * lua require("auto-header").add_or_update_header()]])
 
 return M
