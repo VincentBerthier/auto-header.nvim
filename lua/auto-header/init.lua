@@ -344,6 +344,6 @@ end
 M.test = M.add_or_update_header
 
 -- Auto add header on save
--- vim.cmd [[autocmd BufWritePre * lua add_or_update_header()]]
+vim.cmd([[autocmd BufWritePre * lua add_or_update_header()]])
 
 return M

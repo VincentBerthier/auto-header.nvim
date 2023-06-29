@@ -82,17 +82,16 @@ Projects configuration has precedence over the global configuration regarding th
 ```lua
     projects = {
         {
-            project_name = "Vincent’s projects",
             root = "/home/vincent/code/",
             create = true,
             update = true,
             data = {
+                project_name = "Vincent’s projects",
                 cp_holders = "Vincent Berthier",
                 author_mail = "my.email@isp.com",
             },
         },
         {
-            project_name = "auto-header.nvim",
             root = "/home/vincent/code/auto-header.nvim",
             create = false,
             update = true,
@@ -108,6 +107,7 @@ Projects configuration has precedence over the global configuration regarding th
                 headers.licenses.MIT,
             },
             data = {
+                project_name = "auto-header.nvim",
                 cp_holders = "Vincent Berthier",
                 author_mail = ""
             }
