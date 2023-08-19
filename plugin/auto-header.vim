@@ -10,4 +10,3 @@ let &cpo = s:save_cpo  " restore the user coptions
 unlet s:save_cpo
 
 let g:loaded_autoheader = 1
-

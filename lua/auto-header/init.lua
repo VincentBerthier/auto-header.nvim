@@ -1,3 +1,31 @@
+-- File: lua/auto-header/init.lua
+-- Project: auto-header.nvim
+-- Creation date: sam. 19 août 2023 10:50:12
+-- Author: Vincent Berthier <vincent.berthier@posteo.org>
+-- -----
+-- Last modified: sam. 19 août 2023 10:58:39
+-- Modified By: Vincent Berthier
+-- -----
+-- Copyright (c) 2023 <Vincent Berthier>
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software is
+-- furnished to do so, subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all
+-- copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+-- SOFTWARE.
+
 local plenary_status, Path = pcall(require, "plenary.path")
 if not plenary_status then
 	vim.notify("Couldn’t load plenary: disabling auto-header")
@@ -18,7 +46,7 @@ M.config = {
 	update = true,
 	languages = { "cpp", "python", "bash", "rust", "lua" },
 	licenses = licenses,
-	key = "<leader>ah",
+	key = nil,
 	templates = {
 		{
 			language = "*",
@@ -287,10 +315,12 @@ function M.add_or_update_header(update_only)
 			table.insert(header, line)
 		end
 		set_header(header)
+		vim.notify("Header has been added at the top of the file", "INFO", { title = "Auto-Header" })
 	elseif #current ~= #header then
 		return
 	else
 		update_header(header, template, current)
+		vim.notify("Header has been updated at the top of the file", "INFO", { title = "Auto-Header" })
 	end
 end
 
@@ -312,16 +342,15 @@ function M.on_save()
 	if update == nil then
 		update = M.config.update
 	end
+	if not create and not update then
+		return
+	end
 
 	local file_exists = Path:new(vim.api.nvim_buf_get_name(0)):exists()
 	if not file_exists and not create then
-		-- File doesn’t exist, but we don’t want auto buffer creation so nothing to do
-		return
-	elseif file_exists and not update then
-		-- File does exist, but we don’t want auto-updates
 		return
 	end
-	M.add_or_update_header(update and not create)
+	M.add_or_update_header(not create)
 end
 
 --------------------------------------------------------
@@ -340,10 +369,7 @@ function M.setup(user_opts)
 	end
 end
 
---[[ M.test = add_or_update_header ]]
-M.test = M.add_or_update_header
-
 -- Auto add header on save
-vim.cmd([[autocmd BufWritePre * lua require("auto-header").add_or_update_header()]])
+vim.cmd([[autocmd BufWritePre * lua require("auto-header").on_save()]])
 
 return M

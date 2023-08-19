@@ -1,7 +1,9 @@
 # auto-header.nvim
+
 A neovim plugin to automatically create and update code file headers inspired by the Psioniq File Header extension for Visual Studio (https://github.com/davidquinn/psi-header).
 
 ## Features
+
 Manually, or automatically when saving a file, this module creates or updates the header according to a template and variables defined by the current project. The configuration is done at two levels:
 
 ### Global configuration
@@ -11,13 +13,15 @@ First globally, to define the behaviour of the application no matter on which pr
 ```lua
 require("auto-header").setup({
     -- if true, a header will automatically be added when a file is first saved
-    create = true,  
+    create = true,
     -- if true, some fields of the existing header will be updated
-    update = true,  
+    update = true,
     -- languages for which the plugin is enabled. To enable it to all files, add "*"
-    languages = { "cpp", "python", "bash", "rust", "lua" }, 
+    languages = { "cpp", "python", "bash", "rust", "lua" },
     -- The keybinding to use (in normal mode only) that will add or refresh the header
-    key = "<leader>ah",
+    -- Note that it will ignore the create / update parameters specified above, but
+    -- will still require a valid template and project information.
+    key = nil,
     -- The templates to use to create the headers, one by language ("*" will be used if no specific one was found)
     -- The language is determined by neovim’s buffer filetype.
     templates = {
@@ -71,9 +75,12 @@ Note that the module stores the text of a few licenses:
 - MIT
 
 To use them in you header, just use:
+
 ```lua
 require("auto-header").licenses.MIT
 ```
+
+See below for an example.
 
 ### Project Configuration
 
@@ -119,4 +126,3 @@ In there, you can define special templates (non-language specific), and more imp
 You can put anything you want in there, the values of all the keys will replace #key markers in the templates.
 
 Note that if you change the template of your headers and try to update an existing header, auto-header will try to recognize it and abort. No guarantees though, so be careful!
-
