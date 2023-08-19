@@ -1,23 +1,23 @@
 -- File: lua/auto-header/licenses.lua
--- Project: #project_name
--- Creation date: ven. 13 janv. 2023 03:26:22
+-- Project: auto-header.nvim
+-- Creation date: ven. 13 janv. 2023 06:26:25
 -- Author: Vincent Berthier
 -- -----
--- Last modified: ven. 13 janv. 2023 03:26:23
+-- Last modified: sam. 19 août 2023 11:28:08
 -- Modified By: Vincent Berthier
 -- -----
 -- Copyright (c) 2023 <Vincent Berthier>
--- 
+--
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 -- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
--- 
+--
 -- The above copyright notice and this permission notice shall be included in all
 -- copies or substantial portions of the Software.
--- 
+--
 -- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 -- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 -- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,17 +28,16 @@
 
 local plenary_status, Path = pcall(require, "plenary.path")
 if not plenary_status then
-    vim.notify("Couldn’t load plenary: disabling auto-header")
-    return
+	vim.notify("Couldn’t load plenary: disabling auto-header", "ERROR", { title = "Auto-Header" })
+	return
 end
 
-
 local licenses = {
-    ["Apache-2.0"] = "",
-    ["gpl-2.0"] = "",
-    ["gpl-3.0"] = "",
-    ["ISC"] = "",
-    ["MIT"] = "",
+	["Apache-2.0"] = "",
+	["gpl-2.0"] = "",
+	["gpl-3.0"] = "",
+	["ISC"] = "",
+	["MIT"] = "",
 }
 
 licenses["Apache-2.0"] = [[Copyright #cp_year #cp_holders
@@ -70,7 +69,6 @@ licenses["gpl-2.0"] = [[Copyright (C) #cp_year  <#cp_holders>
     You should have received a copy of the GNU General Public License along
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.]]
-
 
 licenses["gpl-3.0"] = [[Copyright (C) #cp_year  #cp_holders
 

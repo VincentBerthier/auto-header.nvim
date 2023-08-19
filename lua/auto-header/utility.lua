@@ -1,9 +1,9 @@
 -- File: lua/auto-header/utility.lua
--- Project: #project_name
+-- Project: auto-heder.nvim
 -- Creation date: ven. 13 janv. 2023 03:26:25
 -- Author: Vincent Berthier
 -- -----
--- Last modified: lun. 23 janv. 2023 22:25:47
+-- Last modified: sam. 19 août 2023 11:27:27
 -- Modified By: Vincent Berthier
 -- -----
 -- Copyright (c) 2023 <Vincent Berthier>

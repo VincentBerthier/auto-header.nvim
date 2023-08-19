@@ -1,9 +1,9 @@
 -- File: lua/auto-header/init.lua
 -- Project: auto-header.nvim
--- Creation date: sam. 19 août 2023 10:50:12
--- Author: Vincent Berthier <vincent.berthier@posteo.org>
+-- Creation date: ven. 13 janv. 2023 02:26:25
+-- Author: Vincent Berthier
 -- -----
--- Last modified: sam. 19 août 2023 10:58:39
+-- Last modified: sam. 19 août 2023 11:29:12
 -- Modified By: Vincent Berthier
 -- -----
 -- Copyright (c) 2023 <Vincent Berthier>
@@ -28,7 +28,7 @@
 
 local plenary_status, Path = pcall(require, "plenary.path")
 if not plenary_status then
-	vim.notify("Couldn’t load plenary: disabling auto-header")
+	vim.notify("Couldn’t load plenary: disabling auto-header", "ERROR", { title = "Auto-Header" })
 	return
 end
 
@@ -291,9 +291,6 @@ function M.add_or_update_header(update_only)
 	if conf.template ~= nil then
 		template.template = conf.template
 	end
-	if conf.template ~= nil then
-		template.template = conf.template
-	end
 
 	-- Update the template if necessary
 	template = update_auto_template(template)
@@ -320,7 +317,7 @@ function M.add_or_update_header(update_only)
 		return
 	else
 		update_header(header, template, current)
-		vim.notify("Header has been updated at the top of the file", "INFO", { title = "Auto-Header" })
+		vim.notify("Header has been updated at the top of the file", "DEBUG", { title = "Auto-Header" })
 	end
 end
 
